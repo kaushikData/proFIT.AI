@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Skills</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+     <div class="container">
+        <div class="row" style="margin:10% 0 0 0;" >
+        <div class="col-sm-9"><h2>
+            Resume Fit Prediction
+            </h2></div>
+        <div class="col-sm-6">
+
+        </div>
+        <div class="col-sm-3">
+            Hi!, Kaushik
+        </div>
+    </div>
+        <hr >
+    <div class="row" style="margin:5% 0 0 0;">
+        <div class="col-sm-3">
+            <h1>Popular Skills</h1>
+            
+            {% for tag in range(0,popularSkills|length) %}
+            {% if tag%2==0 %}
+            <h3><span class="badge badge-success">#{{popularSkills[tag]}}</span></h3>
+            {% else %}
+           <h3> <span class="badge badge-secondary">#{{popularSkills[tag]}}</span></h3>
+            {% endif %}
+            {% endfor %}
+
+        </div>
+        <div class="col-sm-7">
+            <form action="/listing" method="POST">
+                {% for i in range(0,skillCount)%}
+                <div class="form-group">
+                    <label for="skillTestBox">Skill{{i +1}}</label>
+                   
+                    <select name="skill{{i+1}}" id="inputState" class="form-control">
+                        <option selected >Choose...</option>
+                        {% for i in skillTags %}
+                                <option>{{i}}</option>
+                        {% endfor %}
+                    </select>
+
+                    <select name="endorsemennt{{i+1}}" id="inputState" class="form-control">
+                        <option selected >Level</option>
+                        {% for i in [1,2,3,4,5] %}
+                                <option>{{i}}</option>
+                        {% endfor %}
+                    </select>
+
+
+                <small id="skillHelp" class="form-text text-muted">python,aws,social networking etc.,.</small>
+                </div>
+                {% endfor %}
+                 <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+
+
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6"></div>
+        <div class="col-sm-3"></div>
+    </div>
+    <div class="row"></div>
+</div>
+</body>
+</html>
