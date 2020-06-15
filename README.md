@@ -15,7 +15,25 @@ If using cuda:
 ```bash
 conda install pytorch cudatoolkit=10.0 -c pytorch
 ```
-3. Install all requirements
+3. clone the repository and change directory to downloaded repo
+
+4. Install all requirements
 ```bash
 pip install -r requirements.txt 
 ```
+
+## Online Demo:
+
+## Quick Start:
+
+1. Export Flask
+```bash
+export FLASK_APP=server.py
+```
+
+2. Run the Flask Server
+```bash
+flask run
+```
+
+3. The App is now runninng on localhost.
