@@ -28,26 +28,26 @@
         </div>
         <div class="col-sm-7" style="text-align: center;">
     
-                {% for i in pred%}
+                
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <button type="button" class="btn btn-secondary">Applied 1000+</button>
-                    <button type="button" class="btn btn-primary">Qualified 600</button>
-                    
-                    <button type="button" class="btn btn-dark "><a style="text-decoration: None; color: white;" href='/file/{{i["fileName"]}}'>Download List</a></button>
+                    <button type="button" class="btn btn-primary">Filtered 600</button>
+                    <button type="button" class="btn btn-primary" style="background-color:green;color:white">Contextual filtered 300</button>
 
-                    
+                    <button type="button" class="btn btn-dark "><a style="text-decoration: None; color: white;" href='/file/{{filename}}'>Download List</a></button>
                 </div>
+
+
+
                 <div class="card">
                     <div class="card-body">
-                      given skills suits <b>{{i["name"]}} </b>unit
-                        
-                        
+                      Used fine tuned BERT model to find idea candidates for your skill descriptions
                     </div>
                   </div>
-                {%endfor%}
+
+               
                 <br />
 
-                <p class="text-center" style="margin:2% 0 0 0;" ><a href="/skillsDescription"><button type="button" class="btn btn-success ">Use Advanced Model</button></a></p>
             </div>
             <div class="col-sm-2">
                 
