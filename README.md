@@ -31,22 +31,25 @@ conda install pytorch cudatoolkit=10.0 -c pytorch
 pip install -r requirements.txt 
 ```
 
-## Online Demo:
+## Web App:
 http://www.profilefitprediction.me:8000/
 
 ## Minimal Start:
 
-1. Export Flask
+1. Navigate to Source directory 
 ```bash
-export FLASK_APP=server.py
+cd source
 ```
 
-2. Run the Flask Server
+2. Download trained BERT model (~0.5 GB) 
 ```bash
-flask run
+https://drive.google.com/drive/folders/1M_LQEbf7POiRAibYDB25y1dNefcspH2C?usp=sharing
 ```
 
-3. The App is now runninng on localhost.
+3. Run the Flask Server
+```bash
+python server.py
+```
 
 ## From Scratch
 
