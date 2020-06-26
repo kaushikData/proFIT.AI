@@ -62,6 +62,10 @@ Scraper to get candidates profile data from LinkedIn
 
 (ii) Once I scraped profiles, I used https://github.com/jvandenaardweg/linkedin-profile-scraper to get skills and experience from each user.
 
+While crawling Data, I built role category tree
+
+![Role Catehgory Tree] (https://drive.google.com/file/d/1MuRviD2TETBHsdDl9eHAqDyZW-T-fVSK/view?usp=sharing)
+
 2. Data Modelling - Broad Role Classification
 
 Notebook: Broad_Role_Classification_Using_Skills.ipynb
