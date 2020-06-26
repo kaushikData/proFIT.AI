@@ -1,4 +1,5 @@
-# Profile Fit Prediction : With better PROfile FIT, comes better PROFIT
+# Profile Fit Prediction 
+        -With better PROfile FIT, comes better PROFIT
 
 ## MOTIVATION
 Screening resumes plays a crucial part in hiring the right talent for an organization. However, this process is laborious and so the organizations use automatic screening systems for filtering resumes which are often inaccurate. 62% of recruiters admit that qualified candidates are overlooked by current resume screening systems
@@ -9,6 +10,9 @@ There are many limitations in the current systems:
 3. Candidates can easily trick the current systems by adding important keywords from job descriptions to their resumes.
 
 After researching about these screening systems and talking to some recruiter, I came up with a pipeline and built a tool for recruiters to overcome the limitations of the existing resume screening systems.  
+
+## Web App:
+http://www.profilefitprediction.me:8000/
 
 ## Preparing an environment to run the code:
 
@@ -31,9 +35,6 @@ conda install pytorch cudatoolkit=10.0 -c pytorch
 pip install -r requirements.txt 
 ```
 
-## Web App:
-http://www.profilefitprediction.me:8000/
-
 ## Minimal Start:
 
 1. Navigate to Source directory 
@@ -54,3 +55,18 @@ python server.py
 ## From Scratch
 
 1. Data Collection
+
+Scraper to get candidates profile data from LinkedIn
+
+(i) Notebook: LinkedIn_Data_Crawler.ipynb - Crawls user profile id from different roles (example: Data Scientist, Artist and Accountant etc.)
+
+(ii) Once I scraped profiles, I used https://github.com/jvandenaardweg/linkedin-profile-scraper to get skills and experience from each user.
+
+2. Data Modelling - Broad Role Classification
+
+Notebook: Broad_Role_Classification_Using_Skills.ipynb
+
+3. Data Modelling - Deep Role Classification
+
+Notebook: Deep_Role_Classification_Using_Experience.ipynb
+
