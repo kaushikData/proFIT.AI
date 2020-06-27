@@ -80,16 +80,16 @@ Here I am explaining all model parameters, you can find in `Deep_Role_Classifica
 
 | Parameter name              | Default value        | Details                                                      |
 | --------------------------- | -------------------- | ------------------------------------------------------------ |
-| model_type (compulsory)     | None                 | Type of models e.g. BERT, XLNET, Roberta                     |
-| model_name (compulsory)     | None                 | https://huggingface.co/transformers/pretrained_models.html   |
+| model_type                  | None                 | Type of models e.g. BERT, XLNET, Roberta                     |
+| model_name                  | None                 | https://huggingface.co/transformers/pretrained_models.html   |
 | args (optional)             | None                 | A dictionary containing any settings that should be overwritten from the default values. |
-| use_cuda (compulsory)       | True                 | Flag used to indicate whether CUDA should be used.           |
-| num_labels (optional)       | 2                    | Number of labels for classification                          | 
-| weight (optional)           | equal weights        | Weights assigned for each label while calculating loss       |
+| use_cuda                    | True                 | Flag used to indicate whether CUDA should be used.           |
+| num_labels                  | 2                    | Number of labels for classification                          | 
+| weight                      | 1 (equal weights)    | Weights assigned for each label while calculating loss       |
 
-### Model Args
+### Model Args (args in parameters)
 
-Here I am explaining all training args, you can find in `Deep_Role_Classification_Using_Experience.ipynb`
+Here I am explaining all model args, you can find in `Deep_Role_Classification_Using_Experience.ipynb`
 
 | Arg name                         | Default value        | Details                                                      |
 | -------------------------------  | -------------------- | ------------------------------------------------------------ |
@@ -115,7 +115,6 @@ Here I am explaining all training args, you can find in `Deep_Role_Classificatio
 | save_eval_checkpoints            | True                 | Save model checkpoints for evaluation performed              |
 | save_steps                       | True                 | Save a model checkpoint at every specified number of steps   |
 | no_cache                         | False                | Save cache features to disk                                  |
-
 | save_model_every_epoch           | True                 | saves every model at the end of epoch if True                |
 | tensorboard_dir                  | None                 | The default directory of tensorboard files is runs/Dec02_09-32-58_36d9e58955b0/              |
 | overwrite_output_dir             | False                | If True, the trained model will be saved to the ouput_dir and will overwrite existing saved models in the same directory.   |
@@ -126,7 +125,6 @@ Here I am explaining all training args, you can find in `Deep_Role_Classificatio
 | wandb_project                    | None                 | name of project defined in weights and biases for visualizing training loss and evaluation loss              |
 | wandb_kwargs                     | {}                   | if using weights and biases library, pass arguments          |
 | use_early_stopping               | True                 | Use early stopping to stop training when early_stopping_metric doesn't improve (based on early_stopping_patience, and early_stopping_delta)|
-
 | early_stopping_patience          | 3                    | Terminate training after this many evaluations without an improvement in eval_loss greater then early_stopping_delta      | 
 | early_stopping_delta             | 0                    | The improvement over best_eval_loss necessary to count as a better checkpoint.    |
 | early_stopping_metric            | eval_loss            | Metrics used for early stopping                              |
@@ -141,10 +139,9 @@ Here I am explaining all training args, you can find in `Deep_Role_Classificatio
 
 | Arg name                    | Default value        | Details                                                      |
 | --------------------------- | -------------------- | ------------------------------------------------------------ |
-| train_df (compulsory)       | None                 | Dataframe with 2 columns - text and labels                   |
-| output_directory (optional) | None                 | https://huggingface.co/transformers/pretrained_models.html   |
-| args (optional)             | None                 | do not confuse this with other ars - these are ars for specific model that you defined |
-| eval_df (optional)          | None                 | Flag used to indicate whether CUDA should be used.           |
-| **kwargs (optional)         | None                 | add extra evaluation metriccds like f1=sklearn.metrics.      | 
+| train_df                    | None                 | Dataframe with 2 columns - text and labels                   |
+| args (optional)             | None                 | Overwrite changes to the specific model only                 |
+| eval_df (optional)          | None                 | Evaluation dataframe used when evaluate_during_training is True         |
+| **kwargs (optional)         | None                 | Add extra evaluation metrics like f1=sklearn.metrics.        | 
 | weight (optional)           | equal weights        | Weights assigned for each label while calculating loss       |
  
