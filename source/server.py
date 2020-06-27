@@ -31,10 +31,11 @@ app = Flask(__name__)
 # defining session
 app.secret_key = "kaushik-app"
 
-#global skill_count 
-skill_count= 0
+#skill_count = session["skill_count"] 
+#skill_count= 0
 #global skill_list 
-skill_list = []
+#skill_list = []
+
 broad_count = 0
 
 @app.route('/')
@@ -44,14 +45,15 @@ def hello_world():
 @app.route('/skills',methods=["POST"])
 def skillsPage():
     popular_skills = ['python', 'powerpoint', 'aws','data analysis','social networking', 'marketing', 'research', 'accounting']
-    global skill_count 
+    
     skill_count = int (request.form["skillsCount"])
     session['skill_count'] = int (request.form["skillsCount"]) 
+
     return render_template("skills.html",skillCount=int(request.form["skillsCount"]),skillTags=skill_vocabulory, popularSkills=popular_skills)
 
 @app.route("/listing",methods=["POST"])
 def listings():
-    # global skill_count
+
     skill_count = session['skill_count']
     xgb_model = pickle.load(open('xgb_broad_model', 'rb'))
     
@@ -96,7 +98,7 @@ def file(fileName):
 
 @app.route("/skillsDescription",methods=["GET"])
 def skillsDescription():
-    return render_template("skillsDescription.html", skill_list = skill_list)
+    return render_template("skillsDescription.html", skill_list = session["skill_list"])
 
 @app.route("/advance",methods=["POST"])
 def advance():
@@ -105,7 +107,7 @@ def advance():
     file_name = ""
     sample_count = 0
 
-    for i in range(skill_count):
+    for i in range(session["skill_count"]):
         description += str(request.form["skillsDescription"+str(i+1)]) + " "
     print ("*****")
     print (description)
