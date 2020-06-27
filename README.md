@@ -58,13 +58,13 @@ python server.py
 
 Scraper to get candidates profile data from LinkedIn
 
-(i) Notebook: LinkedIn_Data_Crawler.ipynb - Crawls user profile id from different roles (example: Data Scientist, Artist and Accountant etc.)
+(i) Notebook: LinkedIn_Data_Crawler.ipynb - Crawls user profile ids from different roles (example: Data Scientist, Artist and Accountant etc.)
 
 (ii) Once I scraped profiles, I used https://github.com/jvandenaardweg/linkedin-profile-scraper to get skills and experience from each user.
 
 While crawling Data, I built role category tree
 
-![Role Catehgory Tree](https://drive.google.com/file/d/1MuRviD2TETBHsdDl9eHAqDyZW-T-fVSK/view?usp=sharing)
+![Role Category Tree](images/Role_Category_Tree.png)
 
 2. Data Modelling - Broad Role Classification
 
