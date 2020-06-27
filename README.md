@@ -60,7 +60,7 @@ Scraper to get candidates profile data from LinkedIn
 
 (i) Notebook: LinkedIn_Data_Crawler.ipynb - Crawls user profile ids from different roles (example: Data Scientist, Artist and Accountant etc.)
 
-(ii) Once I scraped profiles, I used https://github.com/jvandenaardweg/linkedin-profile-scraper to get skills and experience from each user.
+(ii) Once I scraped profiles, I used https://github.com/jvandenaardweg/linkedin-profile-scraper to get skills and experience from each profile.
 
 While crawling Data, I built role category tree
 
@@ -74,3 +74,77 @@ Notebook: Broad_Role_Classification_Using_Skills.ipynb
 
 Notebook: Deep_Role_Classification_Using_Experience.ipynb
 
+### Parameters
+
+Here I am explaining all model parameters, you can find in `Deep_Role_Classification_Using_Experience.ipynb`
+
+| Parameter name              | Default value        | Details                                                      |
+| --------------------------- | -------------------- | ------------------------------------------------------------ |
+| model_type (compulsory)     | None                 | Type of models e.g. BERT, XLNET, Roberta                     |
+| model_name (compulsory)     | None                 | https://huggingface.co/transformers/pretrained_models.html   |
+| args (optional)             | None                 | A dictionary containing any settings that should be overwritten from the default values. |
+| use_cuda (compulsory)       | True                 | Flag used to indicate whether CUDA should be used.           |
+| num_labels (optional)       | 2                    | Number of labels for classification                          | 
+| weight (optional)           | equal weights        | Weights assigned for each label while calculating loss       |
+
+### Model Args
+
+Here I am explaining all training args, you can find in `Deep_Role_Classification_Using_Experience.ipynb`
+
+| Arg name                         | Default value        | Details                                                      |
+| -------------------------------  | -------------------- | ------------------------------------------------------------ |
+| output_dir (compulsory)          | "outputs/"           | Output is stored in this directory.                          |
+| cache_dir (optional)             | "cache/"             | Cache files stored in this directory                         |
+| best_model_dir (optional)        | "outputs/best_model/"| This is when eval during traing is true - store best model   |
+| fp16                             | True                 | Needs to use NVidia Apex library. Helps inn reducing model size enables training with larger mini-batches  |
+| max_seq_length                   | 128                  | Maximum limit of sequence (input) for the model              |
+| train_batch_size                 | 8                    | Size of training batch                                       |
+| eval_batch_size                  | 8                    | Size of evaluation batch                                     |
+| gradient_accumulation_steps      | 1                    | Number of training steps before we call optimer.step()       | 
+| num_train_epochs                 | 1                    | Number of epochs while training model                        |
+| weight_decay                     | 0                    | this adds L2 penalty for regularization                      |
+| learning_rate                    | 4e-5                 | Learning rate used while training using adam optimizer       |
+| adam_epsilon                     | 1e-8                 | Adam optimizer hyperparameter epsilon value                  |
+| max_grad_norm                    | 1.0                  | Max gradient clipping value to avoid exploding gradient ptoblem      |
+| do_lower_case                    | False                | If you are are using unncased model - set it to True           |
+| logging_steps                    | 50                   | https://huggingface.co/transformers/pretrained_models.html   |
+| evaluate_during_training         | False                | If you want to find ideal hyperparameters - give True and add eval-df while training  |
+| evaluate_during_training_steps   | 2000                 | Perform evaluation at every specified number of steps. A checkpoint model and the evaluation results will be saved.           |
+| evaluate_during_training_verbose | False                | Give True if you eant to print more information              | 
+| use_cached_eval_features         | False                | Give True if Evaluation during training need to use cache    |
+| save_eval_checkpoints            | True                 | Save model checkpoints for evaluation performed              |
+| save_steps                       | True                 | Save a model checkpoint at every specified number of steps   |
+| no_cache                         | False                | Save cache features to disk                                  |
+
+| save_model_every_epoch           | True                 | saves every model at the end of epoch if True                |
+| tensorboard_dir                  | None                 | The default directory of tensorboard files is runs/Dec02_09-32-58_36d9e58955b0/              |
+| overwrite_output_dir             | False                | If True, the trained model will be saved to the ouput_dir and will overwrite existing saved models in the same directory.   |
+| reprocess_input_data             | True                 | If True, the input data will be reprocessed even if a cached file of the input data exists in the cache_dir.a                                |
+| process_count                    | 1 or cpu_count() - 2 | if cpu_count() > 1 then process_count = cpu_count() - 2      |
+| n_gpu                            | 1                    | Number of GPUs used for building the model                   | 
+| use_multiprocessing              | True                 | use multiproccessing while converting data to features       | 
+| wandb_project                    | None                 | name of project defined in weights and biases for visualizing training loss and evaluation loss              |
+| wandb_kwargs                     | {}                   | if using weights and biases library, pass arguments          |
+| use_early_stopping               | True                 | Use early stopping to stop training when early_stopping_metric doesn't improve (based on early_stopping_patience, and early_stopping_delta)|
+
+| early_stopping_patience          | 3                    | Terminate training after this many evaluations without an improvement in eval_loss greater then early_stopping_delta      | 
+| early_stopping_delta             | 0                    | The improvement over best_eval_loss necessary to count as a better checkpoint.    |
+| early_stopping_metric            | eval_loss            | Metrics used for early stopping                              |
+| early_stopping_metric_minimize   | True                 | Give True if early_stopping_metric need to be maximum        |
+| manual_seed                      | None                 | Use this to manually set seed to reproduce results           |
+| config                           | {}                   | Use this parameter to change the configuration options       |
+
+
+### Training Args
+
+Here I am explaining all training args, you can find in `Deep_Role_Classification_Using_Experience.ipynb`
+
+| Arg name                    | Default value        | Details                                                      |
+| --------------------------- | -------------------- | ------------------------------------------------------------ |
+| train_df (compulsory)       | None                 | Dataframe with 2 columns - text and labels                   |
+| output_directory (optional) | None                 | https://huggingface.co/transformers/pretrained_models.html   |
+| args (optional)             | None                 | do not confuse this with other ars - these are ars for specific model that you defined |
+| eval_df (optional)          | None                 | Flag used to indicate whether CUDA should be used.           |
+| **kwargs (optional)         | None                 | add extra evaluation metriccds like f1=sklearn.metrics.      | 
+| weight (optional)           | equal weights        | Weights assigned for each label while calculating loss       |
+ 
