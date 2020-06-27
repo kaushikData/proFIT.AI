@@ -1,5 +1,6 @@
+
 from flask import Flask
-from flask import render_template ,request, send_file 
+from flask import session,render_template ,request, send_file 
 import xgboost as xgb
 import pandas as pd
 import pickle
@@ -17,46 +18,57 @@ train_args = {
     'regression': False,
 }
 
+
 skill_vocabulory = []
-with open('skills_vocabulory.txt', 'r') as filehandle:
+with open('./source_data_files/skills_vocabulory.txt', 'r') as filehandle:
     for line in filehandle:
         currentSkill = line[:-1]
         skill_vocabulory.append(currentSkill)
 
+
 app = Flask(__name__)
-skill_count = 0
+
+# defining session
+app.secret_key = "kaushik-app"
+
+#global skill_count 
+skill_count= 0
+#global skill_list 
 skill_list = []
+broad_count = 0
 
 @app.route('/')
 def hello_world():
     return render_template("index.html")
+
 @app.route('/skills',methods=["POST"])
 def skillsPage():
     popular_skills = ['python', 'powerpoint', 'aws','data analysis','social networking', 'marketing', 'research', 'accounting']
     global skill_count 
     skill_count = int (request.form["skillsCount"])
+    session['skill_count'] = int (request.form["skillsCount"]) 
     return render_template("skills.html",skillCount=int(request.form["skillsCount"]),skillTags=skill_vocabulory, popularSkills=popular_skills)
 
 @app.route("/listing",methods=["POST"])
 def listings():
-
-
-    global skill_count
-
+    # global skill_count
+    skill_count = session['skill_count']
     xgb_model = pickle.load(open('xgb_broad_model', 'rb'))
     
     df_test = pd.DataFrame(columns = skill_vocabulory)
 
     print (skill_count)
 
-    global skill_list 
+    # global skill_list 
     skill_list = []
     print (skill_list)
+   
     for i in range(skill_count):
         print (i)
+
         skill_list.append([request.form["skill"+str(i+1)],request.form["endorsemennt"+str(i+1)]])
     print (skill_list)
-
+    session['skill_list'] = skill_list
     total_endorse = 0
     for i in range(skill_count):
         total_endorse += int(skill_list[i][1])
@@ -70,9 +82,11 @@ def listings():
     df_test = xgb.DMatrix(data=df_test)
     label_ano = ["Accounts","Arts, Design and Writing","Engineering","Human Resources","Marketing and Sales"]
     pred = xgb_model.predict(df_test)[0]
-    print (label_ano[int(pred)])
-    
-    return render_template("listing.html", pred = [{"name":label_ano[int(pred)],"fileName":"engineering.csv"}],label_ano = label_ano)
+    print (label_ano[int(pred)]) 
+    # global broad_count
+    broad_count = 359
+    session['broad_count'] = broad_count
+    return render_template("listing.html", pred = [{"name":label_ano[int(pred)],"fileName":"./source_data_files/engineering.csv","count":broad_count}],label_ano = label_ano)
     
 
 
@@ -86,9 +100,11 @@ def skillsDescription():
 
 @app.route("/advance",methods=["POST"])
 def advance():
+    #global broad_count
     description = ""
     file_name = ""
     sample_count = 0
+
     for i in range(skill_count):
         description += str(request.form["skillsDescription"+str(i+1)]) + " "
     print ("*****")
@@ -101,16 +117,22 @@ def advance():
     print (pred)
     if pred == 0:
         label = "Data Scientist"
-        file_name = "data_scientist.csv"
+        file_name = "./source_data_files/data_scientist.csv"
         sample_count = 137
     if pred == 1:
         label = "Network Engineer"
-        file_name = "network_engineer.csv"
+        file_name = "./source_data_files/network_engineer.csv"
         sample_count = 138
     if pred == 2:
         label = "Software Engineer"
-        file_name = "software_engineer.csv"
+        file_name = "./source_data_files/software_engineer.csv"
         sample_count = 215
     print (label)
     
-    return render_template("advance.html", filename = file_name, sample_count = sample_count)
+    return render_template("advance.html", filename = file_name, broad_count = session['broad_count'], deep_count = sample_count)
+
+
+if __name__ == '__main__':
+    # app.run('0.0.0.0',8000,debug = False, threaded=False, processes=3)
+    # app.run('0.0.0.0',8000, debug=True, threaded=True)
+    app.run('0.0.0.0',8000, debug=False)
