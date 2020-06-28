@@ -47,9 +47,14 @@ cd source
 https://drive.google.com/drive/folders/1M_LQEbf7POiRAibYDB25y1dNefcspH2C?usp=sharing
 ```
 
-3. Run the Flask Server
+3. define flask app to be executed
 ```bash
-python server.py
+export FLASK_APP=server.py
+```
+
+4. Run the app on your localhost 8000 port
+```bash
+flask run -h 0.0.0.0 -p 8000
 ```
 
 ## From Scratch
