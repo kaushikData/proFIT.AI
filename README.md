@@ -1,7 +1,7 @@
 # Profile Fit Prediction 
         -With better PROfile FIT, comes better PROFIT
 
-## MOTIVATION
+## Motivation
 Screening resumes plays a crucial part in hiring the right talent for an organization. However, this process is laborious and so the organizations use automatic screening systems for filtering resumes which are often inaccurate. 62% of recruiters admit that qualified candidates are overlooked by current resume screening systems
 There are many limitations in the current systems:
 
